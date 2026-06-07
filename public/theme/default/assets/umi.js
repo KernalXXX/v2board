@@ -1081,6 +1081,7 @@
                     title: "Surfboard",
                     href: "surge:///install-config?url=" + encodeURIComponent(e) + "&name=" + window.settings.title
                 })),
+                t = [],
                 c.a.createElement("div", {
                     className: v.a.oneClickSubscribe,
                     ref: "subscribeBox"
