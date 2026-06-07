@@ -103,12 +103,12 @@ class Helper
         $path = config('v2board.subscribe_path', '/api/v1/client/subscribe');
         if (empty($path)) {
             $path = '/api/v1/client/subscribe';
-        } 
+        }
         $subscribeUrls = explode(',', config('v2board.subscribe_url'));
         $subscribeUrl = $subscribeUrls[rand(0, count($subscribeUrls) - 1)];
         switch ($submethod) {
             case 0:
-                $path = "{$path}?token={$token}";
+                $path = rtrim($path, '/') . "/{$token}";
                 if ($subscribeUrl) return $subscribeUrl . $path;
                 return url($path);
                 break;
@@ -123,7 +123,7 @@ class Helper
                         $newtoken = Cache::get("otp_{$token}");
                     }
                 }
-                $path = "{$path}?token={$newtoken}";
+                $path = rtrim($path, '/') . "/{$newtoken}";
                 if ($subscribeUrl) return $subscribeUrl . $path;
                 return url($path);
                 break;
@@ -135,7 +135,7 @@ class Helper
                 $user = User::where('token', $token)->select('id')->first();
                 $newtoken = self::base64EncodeUrlSafe("{$user->id}:{$hash}");
 
-                $path = "{$path}?token={$newtoken}";
+                $path = rtrim($path, '/') . "/{$newtoken}";
                 if ($subscribeUrl) return $subscribeUrl . $path;
                 return url($path);
                 break;
