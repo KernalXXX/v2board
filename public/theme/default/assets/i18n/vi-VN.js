@@ -260,7 +260,6 @@ window.settings.i18n['vi-VN'] = {
   '对您当前的订阅进行续费': 'Gia hạn gói hiện tại',
   '对您当前的订阅进行购买': 'Mua gói bạn đã chọn',
   '捷径': 'Phím tắt',
-  '不会使用，查看使用教程': 'Mua gói này nếu bạn đăng ký',
   '使用支持扫码的客户端进行订阅': 'Sử dụng ứng dụng quét mã để đăng ký',
   '扫描二维码订阅': 'Quét mã QR để đăng ký',
   '续费': 'Gia hạn',

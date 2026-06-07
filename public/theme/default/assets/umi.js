@@ -1132,7 +1132,7 @@
                     block: !0,
                     type: "primary"
                 }, Object(p["formatMessage"])({
-                    id: "\u4e0d\u4f1a\u4f7f\u7528\uff0c\u67e5\u770b\u4f7f\u7528\u6559\u7a0b"
+                    id: "\u67e5\u770b\u6559\u7a0b"
                 }))))
             }
             render() {

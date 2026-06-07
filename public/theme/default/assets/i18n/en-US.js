@@ -260,7 +260,6 @@ window.settings.i18n['en-US'] = {
   '对您当前的订阅进行续费': 'Renew your current subscription',
   '对您当前的订阅进行购买': 'Purchase your current subscription',
   '捷径': 'Shortcut',
-  '不会使用，查看使用教程': 'I am a newbie, view the tutorial',
   '使用支持扫码的客户端进行订阅': 'Use a client app that supports scanning QR code to subscribe',
   '扫描二维码订阅': 'Scan QR code to subscribe',
   '续费': 'Renewal',
