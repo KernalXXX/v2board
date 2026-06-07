@@ -1035,7 +1035,7 @@
                 this.state = {}
             }
             renderSubscribeBox() {
-                var e = this.props.subscribeUrl
+                var e = this.props.subscribeUrl || ""
                   , n = e.indexOf("?") === -1 ? "?" : "&"
                   , t = [];
                 return t.push({
