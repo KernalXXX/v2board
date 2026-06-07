@@ -64,7 +64,8 @@ class UserController extends Controller
     public function fetch(UserFetch $request)
     {
         $current = $request->input('current') ? $request->input('current') : 1;
-        $pageSize = $request->input('pageSize') >= 10 ? $request->input('pageSize') : 10;
+        $pageSize = (int)$request->input('pageSize', 20);
+        $pageSize = in_array($pageSize, [20, 50, 100], true) ? $pageSize : 20;
         $sortType = in_array($request->input('sort_type'), ['ASC', 'DESC']) ? $request->input('sort_type') : 'DESC';
         $sort = $request->input('sort') ? $request->input('sort') : 'created_at';
         $userModel = User::select(

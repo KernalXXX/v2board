@@ -53,7 +53,8 @@ class OrderController extends Controller
     public function fetch(OrderFetch $request)
     {
         $current = $request->input('current') ? $request->input('current') : 1;
-        $pageSize = $request->input('pageSize') >= 10 ? $request->input('pageSize') : 10;
+        $pageSize = (int)$request->input('pageSize', 20);
+        $pageSize = in_array($pageSize, [20, 50, 100], true) ? $pageSize : 20;
         $orderModel = Order::orderBy('created_at', 'DESC');
         if ($request->input('is_commission')) {
             $orderModel->where('invite_user_id', '!=', NULL);
