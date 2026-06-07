@@ -16,6 +16,13 @@ class ClientController extends Controller
 {
     public function subscribe(Request $request)
     {
+        \Log::info('subscribe request', [
+            'token' => $request->route('token'),
+            'referer' => $request->headers->get('referer'),
+            'user_agent' => $request->userAgent(),
+            'ip' => $request->ip(),
+        ]);
+
         $flag = $request->input('flag')
             ?? ($_SERVER['HTTP_USER_AGENT'] ?? '');
         $flag = strtolower($flag);
