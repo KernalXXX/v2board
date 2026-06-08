@@ -13,6 +13,7 @@ class ClientRoute
         ], function ($router) {
             // Client
             if (empty(config('v2board.subscribe_path'))) {
+                $router->get('/subscribe/raw/{token}', 'V1\\Client\\ClientController@rawSubscribe');
                 $router->get('/subscribe/{token}', 'V1\\Client\\ClientController@subscribe');
             }
             // App

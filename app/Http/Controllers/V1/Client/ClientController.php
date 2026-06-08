@@ -10,11 +10,40 @@ use App\Protocols\ClashMeta;
 use App\Services\ServerService;
 use App\Services\UserService;
 use App\Utils\Helper;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     public function subscribe(Request $request)
+    {
+        $client = new Client([
+            'timeout' => 30,
+            'http_errors' => false,
+        ]);
+
+        $response = $client->get($this->getConvertedSubscribeUrl($request));
+        $body = (string)$response->getBody();
+
+        if ($response->getStatusCode() === 400 && trim($body) === 'Invalid target!') {
+            return $this->buildRawSubscribeResponse($request);
+        }
+
+        $headers = [];
+        foreach ($response->getHeaders() as $key => $values) {
+            if (in_array(strtolower($key), ['transfer-encoding', 'content-length', 'connection'])) continue;
+            $headers[$key] = implode(', ', $values);
+        }
+
+        return response($body, $response->getStatusCode())->withHeaders($headers);
+    }
+
+    public function rawSubscribe(Request $request)
+    {
+        return $this->buildRawSubscribeResponse($request);
+    }
+
+    private function buildRawSubscribeResponse(Request $request)
     {
         $flag = $request->input('flag')
             ?? ($_SERVER['HTTP_USER_AGENT'] ?? '');
@@ -52,6 +81,26 @@ class ClientController extends Controller
             $class = new General($user, $servers);
             return $class->handle();
         }
+    }
+
+    private function getConvertedSubscribeUrl(Request $request)
+    {
+        $path = config('v2board.subscribe_path', '/api/v1/client/subscribe');
+        if (empty($path)) {
+            $path = '/api/v1/client/subscribe';
+        }
+
+        $baseUrl = $request->getSchemeAndHttpHost();
+        $rawUrl = $baseUrl . rtrim($path, '/') . '/raw/' . $request->route('token');
+
+        return 'https://api.v1.mk/sub?' . http_build_query([
+            'target' => 'auto',
+            'udp' => 'true',
+            'expand' => 'false',
+            'filename' => 'SparkCloud',
+            'config' => $baseUrl . '/static/sub.ini',
+            'url' => $rawUrl,
+        ], '', '&', PHP_QUERY_RFC3986);
     }
 
     private function setSubscribeInfoToServers(&$servers, $user)
