@@ -18,7 +18,7 @@ class ClientController extends Controller
     public function subscribe(Request $request)
     {
         $client = new Client([
-            'timeout' => 30,
+            'timeout' => 10,
             'http_errors' => false,
         ]);
 
