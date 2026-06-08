@@ -29,6 +29,10 @@ class ClientController extends Controller
         ]);
         $body = (string)$response->getBody();
 
+        if ($response->getStatusCode() === 400 && trim($body) === 'Invalid target!') {
+            return $this->buildGeneralSubscribeResponse($request);
+        }
+
         $headers = [];
         foreach ($response->getHeaders() as $key => $values) {
             if (in_array(strtolower($key), ['transfer-encoding', 'content-length', 'connection'])) continue;
@@ -78,6 +82,18 @@ class ClientController extends Controller
                     return $class->handle();
                 }
             }
+            $class = new General($user, $servers);
+            return $class->handle();
+        }
+    }
+
+    private function buildGeneralSubscribeResponse(Request $request)
+    {
+        $user = $request->user;
+        $userService = new UserService();
+        if ($userService->isAvailable($user)) {
+            $serverService = new ServerService();
+            $servers = $serverService->getAvailableServers($user);
             $class = new General($user, $servers);
             return $class->handle();
         }
