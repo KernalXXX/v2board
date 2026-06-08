@@ -29,6 +29,10 @@ class ClientController extends Controller
         ]);
         $body = (string)$response->getBody();
 
+        if (strpos($body, '#!MANAGED-CONFIG') === 0) {
+            $body = preg_replace('/^#!MANAGED-CONFIG\s+\S+(.*)$/m', '#!MANAGED-CONFIG ' . $request->fullUrl() . '$1', $body, 1);
+        }
+
         if ($response->getStatusCode() === 400 && trim($body) === 'Invalid target!') {
             return $this->buildGeneralSubscribeResponse($request);
         }
