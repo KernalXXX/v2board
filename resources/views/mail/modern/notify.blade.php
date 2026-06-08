@@ -7,5 +7,4 @@
     <div class="headline" style="margin:0 0 16px; font-size:28px; line-height:1.2; font-weight:800; color:#101828;">网站通知</div>
     <div style="font-size:16px; line-height:1.9; color:#475467; margin:0 0 24px;">尊敬的用户您好！</div>
     <div style="font-size:15px; line-height:1.9; color:#344054; background:#f9fafb; border:1px solid #e4e7ec; border-radius:18px; padding:18px 20px;">{!! nl2br($content) !!}</div>
-    <div class="theme-accent-border" style="margin-top:24px; padding-left:14px; border-left:4px solid #e4e7ec; color:#667085; font-size:13px; line-height:1.8;">如需更多信息，请返回站点查看最新公告。</div>
 @endsection
