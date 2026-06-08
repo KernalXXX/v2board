@@ -22,7 +22,11 @@ class ClientController extends Controller
             'http_errors' => false,
         ]);
 
-        $response = $client->get($this->getConvertedSubscribeUrl($request));
+        $response = $client->get($this->getConvertedSubscribeUrl($request), [
+            'headers' => [
+                'User-Agent' => $request->userAgent() ?: '',
+            ],
+        ]);
         $body = (string)$response->getBody();
 
         $headers = [];
