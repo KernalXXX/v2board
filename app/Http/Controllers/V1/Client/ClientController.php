@@ -17,6 +17,11 @@ class ClientController extends Controller
 {
     public function subscribe(Request $request)
     {
+        $subscribeConverterUrl = config('v2board.subscribe_converter_url');
+        if (empty($subscribeConverterUrl)) {
+            return $this->buildRawSubscribeResponse($request);
+        }
+
         $client = new Client([
             'timeout' => 10,
             'http_errors' => false,
@@ -113,7 +118,7 @@ class ClientController extends Controller
         $baseUrl = $request->getSchemeAndHttpHost();
         $rawUrl = $baseUrl . rtrim($path, '/') . '/raw/' . $request->route('token');
 
-        return 'https://api.v1.mk/sub?' . http_build_query([
+        return rtrim(config('v2board.subscribe_converter_url'), '?') . '?' . http_build_query([
             'target' => 'auto',
             'udp' => 'true',
             'expand' => 'false',
