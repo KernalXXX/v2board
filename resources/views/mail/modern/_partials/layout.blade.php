@@ -74,9 +74,7 @@
                 <table role="presentation" class="card" width="600" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="width:600px; max-width:600px; background:#ffffff; border-collapse:separate; border-spacing:0; border:1px solid #e7ecf3; border-radius:24px; overflow:hidden; box-shadow:0 18px 40px rgba(15, 23, 42, 0.08);">
                     <tr>
                         <td class="header theme-accent-bg" style="padding: 28px 32px 24px; color:#ffffff;">
-                            <div style="font-size:12px; line-height:1; letter-spacing: .24em; text-transform: uppercase; opacity: .82;">Mail Center</div>
-                            <div style="margin-top:10px; font-size:28px; line-height:1.2; font-weight:800; letter-spacing:-0.02em;">{{ config('v2board.app_name', 'V2Board') }}</div>
-                            <div style="margin-top:8px; font-size:14px; line-height:1.6; opacity:.92;">{{$name}}</div>
+                            <div style="font-size:28px; line-height:1.2; font-weight:800; letter-spacing:-0.02em;">{{ config('v2board.app_name', 'V2Board') }}</div>
                         </td>
                     </tr>
                     <tr>
