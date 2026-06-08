@@ -88,7 +88,6 @@
                                 <tr>
                                     <td style="padding-top:18px; font-size:12px; line-height:1.8; color:#98a2b3;">
                                         <div>本邮件由系统自动发送，请勿直接回复。</div>
-                                        <div><a href="{{$url}}" class="theme-accent-text" style="text-decoration:none;">返回{{$name}}</a></div>
                                     </td>
                                 </tr>
                             </table>
