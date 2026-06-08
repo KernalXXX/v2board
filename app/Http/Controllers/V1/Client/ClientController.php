@@ -25,10 +25,6 @@ class ClientController extends Controller
         $response = $client->get($this->getConvertedSubscribeUrl($request));
         $body = (string)$response->getBody();
 
-        if ($response->getStatusCode() === 400 && trim($body) === 'Invalid target!') {
-            return $this->buildRawSubscribeResponse($request);
-        }
-
         $headers = [];
         foreach ($response->getHeaders() as $key => $values) {
             if (in_array(strtolower($key), ['transfer-encoding', 'content-length', 'connection'])) continue;
