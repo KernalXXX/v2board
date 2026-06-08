@@ -51,6 +51,38 @@ Route::get('/' . config('v2board.secure_path', config('v2board.frontend_admin_pa
     ]);
 });
 
+Route::get('/mail-preview/modern/{template}', function ($template) {
+    $views = [
+        'verify' => [
+            'name' => config('v2board.app_name', 'V2Board'),
+            'url' => config('v2board.app_url'),
+            'code' => '483921',
+        ],
+        'notify' => [
+            'name' => config('v2board.app_name', 'V2Board'),
+            'url' => config('v2board.app_url'),
+            'content' => "这是一封 modern 模板预览邮件。\n你可以用它确认配色、间距和信息层级是否符合预期。",
+        ],
+        'remindTraffic' => [
+            'name' => config('v2board.app_name', 'V2Board'),
+            'url' => config('v2board.app_url'),
+        ],
+        'remindExpire' => [
+            'name' => config('v2board.app_name', 'V2Board'),
+            'url' => config('v2board.app_url'),
+        ],
+        'mailLogin' => [
+            'name' => config('v2board.app_name', 'V2Board'),
+            'url' => config('v2board.app_url'),
+            'link' => rtrim(config('v2board.app_url'), '/') . '/#/login?preview=1',
+        ],
+    ];
+
+    abort_unless(isset($views[$template]), 404);
+
+    return view('mail.modern.' . $template, $views[$template]);
+});
+
 if (!empty(config('v2board.subscribe_path'))) {
     Route::get(rtrim(config('v2board.subscribe_path'), '/') . '/raw/{token}', 'V1\\Client\\ClientController@rawSubscribe')->middleware('client');
     Route::get(rtrim(config('v2board.subscribe_path'), '/') . '/{token}', 'V1\\Client\\ClientController@subscribe')->middleware('client');
